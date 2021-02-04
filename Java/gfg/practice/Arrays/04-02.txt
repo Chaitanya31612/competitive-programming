@@ -1,0 +1,2 @@
+Java/gfg/practice/Arrays/04-02.txt
+Arrays basic 5, function based
