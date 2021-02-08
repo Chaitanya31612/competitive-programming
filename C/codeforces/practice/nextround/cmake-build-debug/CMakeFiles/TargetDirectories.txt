@@ -1,3 +1,0 @@
-D:/Competitive-Programming/C/codeforces/practice/nextround/cmake-build-debug/CMakeFiles/edit_cache.dir
-D:/Competitive-Programming/C/codeforces/practice/nextround/cmake-build-debug/CMakeFiles/nextround.dir
-D:/Competitive-Programming/C/codeforces/practice/nextround/cmake-build-debug/CMakeFiles/rebuild_cache.dir
