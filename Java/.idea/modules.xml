@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/Java.iml" filepath="$PROJECT_DIR$/.idea/Java.iml" />
+      <module fileurl="file://$PROJECT_DIR$/codechef/codechef.iml" filepath="$PROJECT_DIR$/codechef/codechef.iml" />
+      <module fileurl="file://$PROJECT_DIR$/codeforces/codeforces.iml" filepath="$PROJECT_DIR$/codeforces/codeforces.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gfg/gfg.iml" filepath="$PROJECT_DIR$/gfg/gfg.iml" />
+    </modules>
+  </component>
+</project>
