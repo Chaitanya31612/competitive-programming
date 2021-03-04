@@ -24,7 +24,7 @@ public class KLargest {
                 minHeap.minHeap();;
             }
         }
-        
+
 
         int[] ansArray = new int[k+1];
         for (int j = 0; j <= k; j++) {

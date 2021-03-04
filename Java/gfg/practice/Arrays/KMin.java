@@ -38,8 +38,8 @@ public class KMin {
         }
 
         minHeap.minHeap();
-        
-        
+
+
         while (k-- > 1) {
             minHeap.remove();
         }

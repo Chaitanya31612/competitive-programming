@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/ArrayModule/ArrayModule.iml" filepath="$PROJECT_DIR$/ArrayModule/ArrayModule.iml" />
       <module fileurl="file://$PROJECT_DIR$/BitManipulation/BitManipulation.iml" filepath="$PROJECT_DIR$/BitManipulation/BitManipulation.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Mathematics/Mathematics.iml" filepath="$PROJECT_DIR$/Mathematics/Mathematics.iml" />
+      <module fileurl="file://$PROJECT_DIR$/RecursionModule/RecursionModule.iml" filepath="$PROJECT_DIR$/RecursionModule/RecursionModule.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Strings/Strings.iml" filepath="$PROJECT_DIR$/Strings/Strings.iml" />
       <module fileurl="file://$PROJECT_DIR$/practice.iml" filepath="$PROJECT_DIR$/practice.iml" />
     </modules>
   </component>
