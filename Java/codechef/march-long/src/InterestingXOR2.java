@@ -3,7 +3,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-public class InterestingXOR {
+public class InterestingXOR2 {
     static class FastReader {
         BufferedReader br;
         StringTokenizer st;
@@ -53,38 +53,25 @@ public class InterestingXOR {
         int t = sc.nextInt();
         while(t-- > 0) {
             long c = sc.nextLong();
-            int d = (int)Math.ceil(Math.log(c) / Math.log(2));
-            long max = Long.MIN_VALUE;
-            for(long i = (long)Math.pow(2,d) - 1; i >= c/2; i--) {
-                long b = i ^ c;
-                long prod = i * b;
-                if(prod > max) {
-                    max = prod;
+//            int d = (int)Math.ceil(Math.log(c) / Math.log(2));
+//            System.out.println(Integer.toBinaryString(c));
+            String str = Long.toBinaryString(c);
+            String a = "";
+            for(int i = str.length()-1; i > 0; i--) {
+                if(str.charAt(i) == '1' || str.charAt(i) == '0') {
+                    a = "1" + a;
                 }
             }
-            System.out.println(max);
+            if(str.charAt(0) == '1') {
+                a = "0" + a;
+            }
 
-//            int[] anum = new int[(int)Math.pow(2, d) + 1];
-//            int n = anum.length;
-//            for(int i = 0; i < n; i++) {
-//                anum[i] = i;
-//            }
-//
-//            int max = Integer.MIN_VALUE;
-//            for(int i=0;i<n;i++)
-//            {
-//                for(int j=i;j<n;j++)
-//                {
-//                    int k=anum[i]^anum[j];
-//                    if(k==c)
-//                    {
-//                        max = Math.max(max, (anum[i]*anum[j]));
-//                    }
-//                }
-//            }
-//
-//            System.out.println(max);
+            long aInt = Integer.parseInt(a, 2);
+            long b = aInt ^ c;
+//            System.out.println("a = " + a);
+//            System.out.println("b = " + b);
 
+            System.out.println(aInt*b);
         }
     }
 }

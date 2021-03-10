@@ -6,8 +6,10 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/DSA.iml" filepath="$PROJECT_DIR$/.idea/DSA.iml" />
       <module fileurl="file://$PROJECT_DIR$/Function/Function.iml" filepath="$PROJECT_DIR$/Function/Function.iml" />
       <module fileurl="file://$PROJECT_DIR$/Initial/Initial.iml" filepath="$PROJECT_DIR$/Initial/Initial.iml" />
+      <module fileurl="file://$PROJECT_DIR$/OOPS/OOPS.iml" filepath="$PROJECT_DIR$/OOPS/OOPS.iml" />
       <module fileurl="file://$PROJECT_DIR$/Patterns/Patterns.iml" filepath="$PROJECT_DIR$/Patterns/Patterns.iml" />
       <module fileurl="file://$PROJECT_DIR$/Strings/Strings.iml" filepath="$PROJECT_DIR$/Strings/Strings.iml" />
+      <module fileurl="file://$PROJECT_DIR$/OOPS/classes_and_objects.iml" filepath="$PROJECT_DIR$/OOPS/classes_and_objects.iml" />
     </modules>
   </component>
 </project>

@@ -1,9 +1,10 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class InterestingXOR {
+public class SpaceArray {
     static class FastReader {
         BufferedReader br;
         StringTokenizer st;
@@ -48,42 +49,51 @@ public class InterestingXOR {
             return str;
         }
     }
+
+    public static int sum(int[] arr) {
+        int sum = 0;
+        for(int i = 0; i < arr.length; i++){
+            sum += arr[i];
+        }
+
+        return sum;
+    }
+
     public static void main(String[] args) {
         FastReader sc = new FastReader();
         int t = sc.nextInt();
         while(t-- > 0) {
-            long c = sc.nextLong();
-            int d = (int)Math.ceil(Math.log(c) / Math.log(2));
-            long max = Long.MIN_VALUE;
-            for(long i = (long)Math.pow(2,d) - 1; i >= c/2; i--) {
-                long b = i ^ c;
-                long prod = i * b;
-                if(prod > max) {
-                    max = prod;
-                }
+            int n = sc.nextInt();
+            int[] arr = new int[n];
+            for(int i = 0; i < n; i++) {
+                arr[i] = sc.nextInt();
             }
-            System.out.println(max);
 
-//            int[] anum = new int[(int)Math.pow(2, d) + 1];
-//            int n = anum.length;
-//            for(int i = 0; i < n; i++) {
-//                anum[i] = i;
-//            }
-//
-//            int max = Integer.MIN_VALUE;
-//            for(int i=0;i<n;i++)
-//            {
-//                for(int j=i;j<n;j++)
-//                {
-//                    int k=anum[i]^anum[j];
-//                    if(k==c)
-//                    {
-//                        max = Math.max(max, (anum[i]*anum[j]));
-//                    }
-//                }
-//            }
-//
-//            System.out.println(max);
+            int sumN = (n*(n+1))/2;
+            if(sum(arr) > sumN) {
+                System.out.println("Second");
+            } else {
+                Arrays.sort(arr);
+                String person = "";
+                boolean flag = true;
+                while(true) {
+                    int count = 0;
+                    for(int i = 0; i < n; i++) {
+                        if(arr[i] < i+1) {
+                            arr[i]++;
+                            person = flag ? "First" : "Second";
+                            flag = !flag;
+                            count++;
+                            break;
+                        }
+                    }
+                    if(count == 0) {
+                        System.out.println(person);
+                        break;
+                    }
+                }
+
+            }
 
         }
     }
