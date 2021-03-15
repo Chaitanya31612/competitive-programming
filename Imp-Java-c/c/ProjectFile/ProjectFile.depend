@@ -1,0 +1,15 @@
+# depslib dependency file v1.0
+1589374859 source:c:\users\chaitanya\desktop\development\first\projectfile\main.c
+	<stdio.h>
+	<stdlib.h>
+
+1589264643 source:c:\users\chaitanya\desktop\development\first\projectfile\reverse.c
+	<stdio.h>
+	<string.h>
+
+1589265844 source:c:\users\chaitanya\desktop\development\first\projectfile\comparestrings.c
+	<stdio.h>
+
+1589374906 source:c:\users\chaitanya\desktop\development\first\projectfile\allmethods.c
+	<stdio.h>
+

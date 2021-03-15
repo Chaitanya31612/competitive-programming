@@ -1,0 +1,43 @@
+import java.util.*;  class GFG
+{
+	public static void main (String[] args) 
+	{
+	    solver.solve();
+	}
+	
+	
+    static class solver
+	{
+	    public static void solve()
+	    {
+	        int[] f={0,1};
+	        int[][] t={{0,1},{1,1}};
+	        t=find_exponentiation(t,5);
+	        long ans=0;
+	        ans=f[0]*t[1][0] + f[1]*t[1][1];
+	        System.out.println(ans);
+	             
+	              
+	    }
+
+        public static int[][] find_exponentiation(int t[][],int pow)
+                {
+                    if(pow==1)
+                        return t;
+                    int temp[][]=find_exponentiation(t,pow/2);
+                    if(pow%2==0)
+                        return multiply_matrices(temp,temp);
+                    else 
+                        return multiply_matrices(t,multiply_matrices(temp,temp));
+                }
+                
+        public static int[][] multiply_matrices(int a[][],int b[][])
+        {
+            int ans[][]=new int[2][2];
+            for(int i=0;i<2;i++)
+                for(int j=0;j<2;
+
+
+
+//////////////////////////////////////////////////////////
+

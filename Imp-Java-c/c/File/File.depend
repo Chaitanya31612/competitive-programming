@@ -1,0 +1,17 @@
+# depslib dependency file v1.0
+1589287729 source:c:\users\chaitanya\desktop\development\first\file\main.c
+	<stdio.h>
+	<stdlib.h>
+
+1589285800 source:c:\users\chaitanya\desktop\development\first\file\fopen.c
+	<stdio.h>
+
+1589286243 source:c:\users\chaitanya\desktop\development\first\file\fread.c
+	<stdio.h>
+
+1589287442 source:c:\users\chaitanya\desktop\development\first\file\marksadd.c
+	<stdio.h>
+
+1589287824 source:c:\users\chaitanya\desktop\development\first\file\addmore.c
+	<stdio.h>
+

@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1580541729 source:c:\users\chaitanya\desktop\first\main.c
+	<stdio.h>
+	<stdlib.h>
+
+1580538432 source:c:\users\chaitanya\desktop\first\insertionsort.c
+	<stdio.h>
+	<stdlib.h>
+
