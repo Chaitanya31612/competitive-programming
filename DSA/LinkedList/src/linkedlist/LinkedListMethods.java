@@ -2,8 +2,7 @@ package linkedlist;
 
 import java.util.Scanner;
 
-public class LinkedListUse {
-
+public class LinkedListMethods {
     public static Node<Integer> takeInput() {
         Node<Integer> head = null;
         Node<Integer> currentNode = head;
@@ -51,8 +50,8 @@ public class LinkedListUse {
         }
 
 //        if(i == pos-1) {
-            newNode.next = temp.next;
-            temp.next = newNode;
+        newNode.next = temp.next;
+        temp.next = newNode;
 //        }
 
         return head;
@@ -84,10 +83,10 @@ public class LinkedListUse {
 
     public static Node<Integer> middle(Node<Integer> head) {
         /*
-        * two approaches
-        * 1. find length of list and again iterate to find middle - can be done efficiently though
-        * 2. use slow and fast approach -> fast -> last , slow -> middle. fast = 2 times speed of slow
-        * */
+         * two approaches
+         * 1. find length of list and again iterate to find middle - can be done efficiently though
+         * 2. use slow and fast approach -> fast -> last , slow -> middle. fast = 2 times speed of slow
+         * */
 
         Node<Integer> slow = head, fast = head;
         while(fast.next != null && fast.next.next != null) {
@@ -97,7 +96,20 @@ public class LinkedListUse {
 
         return slow;
     }
+    public static Node<Integer> mergeSortedLists(Node<Integer> A, Node<Integer> B) {
+        if(A == null) return B;
+        if(B == null) return A;
 
+        if(A.data < B.data) {
+            A.next = mergeSortedLists(A.next, B);
+            return A;
+        } else {
+            B.next = mergeSortedLists(A, B.next);
+            return B;
+        }
+
+
+    }
 
 //    public static Node<Integer> mergeSorted(Node<Integer> head1, Node<Integer> head2) {
 //        Node<Integer> t1 = head1, t2 = head2, h3 = null, t3 = null;  // h3 and t3 are head and tail for final list they point to whosoeer is smaller
@@ -125,21 +137,6 @@ public class LinkedListUse {
 //        }
 //    }
 
-    public static Node<Integer> mergeSortedLists(Node<Integer> A, Node<Integer> B) {
-        if(A == null) return B;
-        if(B == null) return A;
-
-        if(A.data < B.data) {
-            A.next = mergeSortedLists(A.next, B);
-            return A;
-        } else {
-            B.next = mergeSortedLists(A, B.next);
-            return B;
-        }
-
-
-    }
-
     public static Node<Integer> mergeSort(Node<Integer> head) {
         if(head == null || head.next == null) {
             return head;
@@ -154,35 +151,5 @@ public class LinkedListUse {
         Node<Integer> right =  mergeSort(nextMiddle);
         Node<Integer> sorted = mergeSortedLists(left, right);
         return sorted;
-    }
-
-
-    
-
-    public static void main(String[] args) {
-//        Node<Integer> node1 = new Node<>(10);
-//        Node<Integer> node2 = new Node<>(20);
-//        Node<Integer> node3 = new Node<>(30);
-//        node1.next = node2;
-//        node2.next = node3;
-
-        Node<Integer> head =  takeInput();
-//        head = insert(head, 80, 0);
-        print(head);
-//        delete(head, 3);
-
-//        deleteAlternate(head);
-//        print(head);
-
-//        Node<Integer> mid = middle(head);
-//        System.out.println(mid.data);
-
-//        Node<Integer> node1 = takeInput();
-//        Node<Integer> node2 = takeInput();
-//        Node<Integer> finalList = mergeSortedLists(node1, node2);
-//        print(finalList);
-
-        head = mergeSort(head);
-        print(head);
     }
 }
