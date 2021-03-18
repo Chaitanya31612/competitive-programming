@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
+//BufferedWriter output = new BufferedWriter(new OutputStreamWriter(System.out));
 public class FastReader {
     BufferedReader br;
     StringTokenizer st;

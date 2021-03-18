@@ -111,31 +111,6 @@ public class LinkedListMethods {
 
     }
 
-//    public static Node<Integer> mergeSorted(Node<Integer> head1, Node<Integer> head2) {
-//        Node<Integer> t1 = head1, t2 = head2, h3 = null, t3 = null;  // h3 and t3 are head and tail for final list they point to whosoeer is smaller
-//
-//        while(t1 != null && t1 != null) {
-//            if(t1.data <= t2.data) {
-//                if(h3 == null && t3 == null) {
-//                    h3 = t1;
-//                    t3 = t1;
-//                    t1 = t1.next;
-//                } else {
-//                    // new t3
-//                    t1.next = t2;
-//                    t1 = t1.next;
-//                }
-//            } else {
-//                if(h3 == null && t3 == null) {
-//                    h3 = t2;
-//                    t3 = t3;
-//                    t2 = t2.next;
-//                } else {
-//                    // new t3
-//                }
-//            }
-//        }
-//    }
 
     public static Node<Integer> mergeSort(Node<Integer> head) {
         if(head == null || head.next == null) {
@@ -152,4 +127,30 @@ public class LinkedListMethods {
         Node<Integer> sorted = mergeSortedLists(left, right);
         return sorted;
     }
+
+// doubly list delete
+//    public static Node deleteNode(Node head, int x) {
+//        Node temp = head;
+//        int c = 0;
+//        while(c < x - 1 && temp.next != null) {
+//            temp = temp.next;
+//            c++;
+//        }
+//
+//        if(temp != null && temp.next == null) {
+//            temp.prev.next = null;
+//            return head;
+//        }
+//
+//        if(temp != null && temp.prev == null) {
+//            return head.next;
+//        }
+//
+//        if(temp != null && temp.next != null) {
+//            temp.next.prev = temp.prev;
+//            temp.prev.next = temp.next;
+//        }
+//
+//        return head;
+//    }
 }
