@@ -22,10 +22,10 @@ public class DeleteWithoutHead {
     public static void main(String[] args) {
         Node head = Node.takeInput();
 
-//        deleteNode(head.next);
-//        Node.print(head);
-
-        deleteNodeBetter(head.next);
+        deleteNode(head.next.next);
         Node.print(head);
+
+//        deleteNodeBetter(head.next.next);
+//        Node.print(head);
     }
 }
