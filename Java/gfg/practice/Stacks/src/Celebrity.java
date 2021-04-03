@@ -30,6 +30,7 @@ class Solution {
             int count = 0;
             for(int i = 0; i < n; i++) {
                 if(i != j) {
+                    
                     if(M[i][j] == 1) {
                         count++;
                     }

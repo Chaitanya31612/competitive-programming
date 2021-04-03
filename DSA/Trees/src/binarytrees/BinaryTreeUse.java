@@ -1,8 +1,6 @@
 package binarytrees;
 
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Scanner;
+import java.util.*;
 
 public class BinaryTreeUse {
 
@@ -50,6 +48,37 @@ public class BinaryTreeUse {
             }
             System.out.println();
         }
+    }
+
+    public static ArrayList<Integer> reverseLevelOrder(BinaryTreeNode<Integer> root)
+    {
+        // code here
+        if(root == null) {
+            return null;
+        }
+
+        Queue<BinaryTreeNode<Integer>> queue = new LinkedList<>();
+        queue.add(root);
+        Stack<Integer> stack = new Stack<>();
+        ArrayList<Integer> list = new ArrayList<>();
+
+
+        while (!queue.isEmpty()) {
+            BinaryTreeNode<Integer> frontNode = queue.poll();
+            stack.push(frontNode.data);
+            if(frontNode.right != null) {
+                queue.add(frontNode.right);
+            }
+            if(frontNode.left != null) {
+                queue.add(frontNode.left);
+            }
+        }
+
+        while(!stack.isEmpty()) {
+            list.add(stack.pop());
+        }
+
+        return list;
     }
 
     /* takeInput recursive */
@@ -244,10 +273,42 @@ public class BinaryTreeUse {
         return buildTreeHelper(in, pre, 0, in.length - 1, 0, pre.length - 1);
     }
 
+
+    /* get path from root to node */
+    public static ArrayList<Integer> getRootToNodePath(BinaryTreeNode<Integer> root, int data) {
+        if(root == null) {
+            return null;
+        }
+
+        if(root.data == data) {
+            ArrayList<Integer> output = new ArrayList<>();
+            output.add(root.data);
+            return output;
+        }
+
+        ArrayList<Integer> leftOutput = getRootToNodePath(root.left, data);
+        if(leftOutput != null) {
+            leftOutput.add(root.left.data);
+            return leftOutput;
+        }
+
+        ArrayList<Integer> rightOutput = getRootToNodePath(root.right, data);
+        if(rightOutput != null) {
+            rightOutput.add(root.left.data);
+            return rightOutput;
+        }
+        // if nothing happens till now
+        return null;
+    }
+
+
     public static void main(String[] args) {
 //        BinaryTreeNode<Integer> node = new BinaryTreeNode<>(1);
 //        BinaryTreeNode<Integer> node1 = new BinaryTreeNode<>(2);
 //        node.left = node1;
+
+
+
 //        BinaryTreeNode<Integer> node2 = new BinaryTreeNode<>(3);
 //        node.right = node2;
 
@@ -256,7 +317,7 @@ public class BinaryTreeUse {
 //        BinaryTreeNode<Integer> root = takeInput(sc);
 
         /*takeInput levelwise*/
-//        BinaryTreeNode<Integer> root = takeInputLevelWise();
+        BinaryTreeNode<Integer> root = takeInputLevelWise();
 //
 //        /* print */
 //        printTree(root);
@@ -277,10 +338,15 @@ public class BinaryTreeUse {
 
 
         /* build tree */
-        int[] in = { 4, 2, 5,1,6,3,7};
-        int[] pre = {1,2,4,5,3,6,7};
+//        int[] in = { 4, 2, 5,1,6,3,7};
+//        int[] pre = {1,2,4,5,3,6,7};
+//
+//        BinaryTreeNode<Integer> root = buildTree(in, pre);
+//        printTree(root);
 
-        BinaryTreeNode<Integer> root = buildTree(in, pre);
-        printTree(root);
+
+        /* reverse level printing */
+        ArrayList<Integer> list = reverseLevelOrder(root);
+        System.out.println(list);
     }
 }

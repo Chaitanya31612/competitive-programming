@@ -85,6 +85,7 @@ public class B {
                 int level = 0;
                 ArrayList<Integer> list = new ArrayList<>(n);
                 list.add(0);
+//                int j = 0;
                 for(int i = n-1; i >= 0; i--) {
                     if(arr[i] == -1) {
                         continue;
@@ -93,21 +94,28 @@ public class B {
                         list.set(level, list.get(level) + arr[i]);
                         arr[i] = -1;
                     } else {
-                        int j = 0;
-                        for(j = 0; j < i; j++) {
+//                        for(; j < i; j++) {
+//                            if(arr[j] != -1) {
+//                                if(list.get(level) + arr[j] <= w) {
+//                                    list.set(level, list.get(level) + arr[j]);
+//                                    arr[j] = -1;
+//                                } else {
+//                                    break;
+//                                }
+//                            }
+                        for(int j = i; j >= 0; j--) {
                             if(arr[j] != -1) {
                                 if(list.get(level) + arr[j] <= w) {
-                                    list.set(level, list.get(level) + arr[i]);
+                                    list.set(level, list.get(level) + arr[j]);
                                     arr[j] = -1;
-                                } else {
-                                    break;
                                 }
                             }
                         }
-                        if(j != i) {
+//                        if(j != i) {
                             level++;
                             list.add(arr[i]);
-                        }
+                            arr[i] = -1;
+//                        }
                     }
                 }
 
