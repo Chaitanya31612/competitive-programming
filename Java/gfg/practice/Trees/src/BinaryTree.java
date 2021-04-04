@@ -337,4 +337,210 @@ public class BinaryTree {
         }
         return res;
     }
+
+
+    public ArrayList<Integer> printSpiral() {
+        BinaryTreeNode<Integer> node = root;
+
+        ArrayList<Integer> list = new ArrayList<>();
+        if(node == null) {
+            return list;
+        }
+
+        Stack<BinaryTreeNode<Integer>> s1 = new Stack<>();
+        Stack<BinaryTreeNode<Integer>> s2 = new Stack<>();
+
+        s1.push(node);
+
+        while(!s1.isEmpty() || !s2.isEmpty()) {
+
+            // print from right to left
+            while(!s1.isEmpty()) {
+                BinaryTreeNode<Integer> temp = s1.pop();
+                list.add(temp.data);
+
+                if(temp.right != null) {
+                    s2.push(temp.right);
+                }
+                if(temp.left != null) {
+                    s2.push(temp.left);
+                }
+
+            }
+
+            // print from left to right
+            while(!s2.isEmpty()) {
+                BinaryTreeNode<Integer> temp = s2.pop();
+                list.add(temp.data);
+
+                if(temp.left != null) {
+                    s1.push(temp.left);
+                }
+                if(temp.right != null) {
+                    s1.push(temp.right);
+                }
+            }
+        }
+
+        return list;
+    }
+
+
+
+    private void mirrorTree(BinaryTreeNode<Integer> root) {
+        if(root == null) {
+            return;
+        }
+
+        mirrorTree(root.left);
+        mirrorTree(root.right);
+
+        BinaryTreeNode<Integer> temp = root.left;
+        root.left = root.right;
+        root.right = temp;
+    }
+
+    public void mirrorTree() {
+        mirrorTree(root);
+    }
+
+
+    public boolean isIdentical(BinaryTreeNode<Integer> root1, BinaryTreeNode<Integer> root2) {
+        if(root1 == null && root2 == null) {
+            return true;
+        }
+        if(root1 == null ||
+            root2 == null) {
+            return false;
+        }
+
+        boolean leftOutput = isIdentical(root1.left, root2.left);
+        boolean rightOutput = isIdentical(root1.right, root2.right);
+
+        return ((root1.data == root2.data) &&
+                leftOutput && rightOutput);
+    }
+
+    // O(N^2) approach
+    public boolean isBalanced(BinaryTreeNode<Integer> root) {
+        if(root == null) {
+            return true;
+        }
+
+        int leftHeight = height(root.left);
+        int rightHeight = height(root.right);
+        boolean leftOutput = isBalanced(root.left);
+        boolean rightOutput = isBalanced(root.right);
+
+        return (Math.abs(leftHeight - rightHeight) <= 1) &&
+                leftOutput && rightOutput;
+    }
+
+    // O(N) approach
+    public class HeightBalancedPair {
+        int height;
+        boolean isBalanced;
+    }
+
+    public HeightBalancedPair heightBalanced(BinaryTreeNode<Integer> root) {
+        if(root == null) {
+            HeightBalancedPair output = new HeightBalancedPair();
+            output.height = 0;
+            output.isBalanced = true;
+            return output;
+        }
+
+        HeightBalancedPair leftOutput = heightBalanced(root.left);
+        HeightBalancedPair rightOutput = heightBalanced(root.right);
+
+        int height = Math.max(leftOutput.height, rightOutput.height) + 1;
+
+        boolean isBalanced = (Math.abs(leftOutput.height - rightOutput.height) <= 1) &&
+                leftOutput.isBalanced && rightOutput.isBalanced;
+
+        HeightBalancedPair output = new HeightBalancedPair();
+        output.height = height;
+        output.isBalanced = isBalanced;
+        return output;
+
+    }
+
+    public boolean isBalancedCheck(BinaryTreeNode<Integer> root) {
+        HeightBalancedPair output = heightBalanced(root);
+
+        return output.isBalanced;
+    }
+
+
+
+    /* Root to leaf path sum */
+
+    public boolean hasPathSum(BinaryTreeNode<Integer> root, int sum) {
+        if (root == null)
+            return sum == 0;
+        return hasPathSum(root.left, sum - root.data)
+                || hasPathSum(root.right, sum - root.data);
+    }
+
+
+    /* find lca of two numbers in the tree */
+    public BinaryTreeNode<Integer> lca(BinaryTreeNode<Integer> root, int n1, int n2) {
+        if(root == null) {
+            return null;
+        }
+
+        // if root.data is greater than both n1 and n2 then lca would be in the left subtree
+        if(root.data > n1 && root.data > n2) {
+            return lca(root.left, n1, n2);
+        }
+
+        if(root.data < n1 && root.data < n2) {
+            return lca(root.right, n1, n2);
+        }
+
+        return root;
+    }
+
+
+
+    public static BinaryTreeNode<Integer> buildTreeHelper(int[] in, int[] pre, int inS, int inE, int preS, int preE) {
+        if(inS > inE) {
+            return null;
+        }
+
+        int rootData = pre[preS];
+        BinaryTreeNode<Integer> root = new BinaryTreeNode<>(rootData);
+        int rootDataIndex = -1;
+
+        // find rootData in inorder array and set left to left subtree and right to right
+        for(int i = inS; i <= inE; i++) {
+            if(rootData == in[i]) {
+                rootDataIndex = i;
+                break;
+            }
+        }
+
+        if(rootDataIndex == -1) {
+            return null;
+        }
+
+        int leftInS = inS;
+        int leftInE = rootDataIndex - 1;
+        int leftPreS = preS + 1;
+        int leftPreE = leftInE - leftInS + leftPreS;
+        int rightInS = rootDataIndex + 1;
+        int rightInE = inE;
+        int rightPreS = leftPreE + 1;
+        int rightPreE = preE;
+
+        root.left = buildTreeHelper(in, pre, leftInS, leftInE, leftPreS, leftPreE);
+        root.right = buildTreeHelper(in, pre, rightInS, rightInE, rightPreS, rightPreE);
+
+        return root;
+    }
+
+    /*build tree from preorder inorder array*/
+    public static BinaryTreeNode<Integer> buildTree(int[] in, int[] pre) {
+        return buildTreeHelper(in, pre, 0, in.length - 1, 0, pre.length - 1);
+    }
 }
