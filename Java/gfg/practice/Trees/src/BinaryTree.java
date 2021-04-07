@@ -312,6 +312,101 @@ public class BinaryTree {
 
 
 
+    /* top view */
+    // works for some but not accurate
+    public ArrayList<Integer> topview(BinaryTreeNode<Integer> root) {
+        ArrayList<Integer> list = new ArrayList<>();
+        if(root == null) {
+            return list;
+        }
+
+        BinaryTreeNode<Integer> leftNode = root.left;
+        while(leftNode != null) {
+            list.add(leftNode.data);
+            leftNode = leftNode.left;
+        }
+        list.sort(Collections.reverseOrder());
+        list.add(root.data);
+
+        BinaryTreeNode<Integer> rightNode = root.right;
+        while(rightNode != null) {
+            list.add(rightNode.data);
+            rightNode = rightNode.right;
+        }
+
+        return list;
+    }
+
+
+    /* class for top and bottom view */
+    class QueueObj {
+        BinaryTreeNode<Integer> node;
+        int horizontalDis;
+
+        public QueueObj(BinaryTreeNode<Integer> node, int horizontalDis) {
+            this.node = node;
+            this.horizontalDis = horizontalDis;
+        }
+    }
+
+    /* top view using treemap and queue */
+    public ArrayList<Integer> topView(BinaryTreeNode<Integer> root) {
+        Queue<QueueObj> q = new LinkedList<>();
+        TreeMap<Integer, BinaryTreeNode<Integer>> treeMap = new TreeMap<>();
+
+        q.add(new QueueObj(root, 0));
+        while(!q.isEmpty()) {
+            QueueObj temp = q.poll();
+            if(!treeMap.containsKey(temp.horizontalDis)) {
+                treeMap.put(temp.horizontalDis, temp.node);
+            }
+
+            if(temp.node.left != null) {
+                q.add(new QueueObj(temp.node.left, temp.horizontalDis - 1));
+            }
+            if(temp.node.right != null) {
+                q.add(new QueueObj(temp.node.right, temp.horizontalDis + 1));
+            }
+        }
+
+        ArrayList<Integer> list = new ArrayList<>();
+        for(Map.Entry<Integer, BinaryTreeNode<Integer>> entry :
+            treeMap.entrySet()) {
+            list.add(entry.getValue().data);
+        }
+
+        return list;
+    }
+
+
+    /* bottom view */
+    public ArrayList<Integer> bottomView(BinaryTreeNode<Integer> root) {
+        Queue<QueueObj> q = new LinkedList<>();
+        TreeMap<Integer, BinaryTreeNode<Integer>> treeMap = new TreeMap<>();
+
+        q.add(new QueueObj(root, 0));
+        while(!q.isEmpty()) {
+            QueueObj temp = q.poll();
+            treeMap.put(temp.horizontalDis, temp.node);
+
+            if(temp.node.left != null) {
+                q.add(new QueueObj(temp.node.left, temp.horizontalDis - 1));
+            }
+            if(temp.node.right != null) {
+                q.add(new QueueObj(temp.node.right, temp.horizontalDis + 1));
+            }
+        }
+
+        ArrayList<Integer> list = new ArrayList<>();
+        for(Map.Entry<Integer, BinaryTreeNode<Integer>> entry :
+                treeMap.entrySet()) {
+            list.add(entry.getValue().data);
+        }
+
+        return list;
+    }
+
+
     /* without siblings */
     private void noSiblingUtil(BinaryTreeNode<Integer> root, ArrayList<Integer> res) {
         if(root == null) {
@@ -503,7 +598,7 @@ public class BinaryTree {
 
 
 
-    public static BinaryTreeNode<Integer> buildTreeHelper(int[] in, int[] pre, int inS, int inE, int preS, int preE) {
+    public BinaryTreeNode<Integer> buildTreeHelper(int[] in, int[] pre, int inS, int inE, int preS, int preE) {
         if(inS > inE) {
             return null;
         }
@@ -540,7 +635,164 @@ public class BinaryTree {
     }
 
     /*build tree from preorder inorder array*/
-    public static BinaryTreeNode<Integer> buildTree(int[] in, int[] pre) {
+    public BinaryTreeNode<Integer> buildTree(int[] in, int[] pre) {
         return buildTreeHelper(in, pre, 0, in.length - 1, 0, pre.length - 1);
     }
+
+
+
+    /* Diagonal traversal */
+    // dis - dis from 1st slope
+    private void diagonalTraverseUtil(BinaryTreeNode<Integer> root, int dis, HashMap<Integer, ArrayList<Integer>> map) {
+        if(root == null) {
+            return;
+        }
+
+        ArrayList<Integer> k = map.get(dis);
+        if(k == null) {
+            k = new ArrayList<>();
+        }
+        k.add(root.data);
+        map.put(dis, k);
+
+        diagonalTraverseUtil(root.left, dis + 1, map);
+
+        diagonalTraverseUtil(root.right, dis, map);
+    }
+
+    public ArrayList<Integer> diagonalTraverse(BinaryTreeNode<Integer> root) {
+        HashMap<Integer, ArrayList<Integer>> map = new HashMap<>();
+
+        diagonalTraverseUtil(root, 0, map);
+        ArrayList<Integer> list = new ArrayList<>();
+        for(Map.Entry<Integer, ArrayList<Integer>> entry:
+                map.entrySet()) {
+            for(Integer elem : entry.getValue()) {
+                list.add(elem);
+            }
+        }
+
+        return list;
+    }
+
+
+    /* binary tree to sum tree */
+
+    private int sumTreeUtil(BinaryTreeNode<Integer> root) {
+        if(root == null) {
+            return 0;
+        }
+
+        if(root.left == null && root.right == null){
+            int temp = root.data;
+            root.data = 0;
+            return temp;
+        }
+
+        int leftSum = sumTreeUtil(root.left);
+        int rightSum = sumTreeUtil(root.right);
+        int sum = root.data + leftSum + rightSum;
+        root.data = leftSum + rightSum;
+        return sum;
+    }
+
+    public void toSumTree(BinaryTreeNode<Integer> root){
+        sumTreeUtil(root);
+    }
+
+
+    /* isomorphic - those trees which are either equal or some subtrees have been flipped */
+    public boolean isIsomorphic(BinaryTreeNode<Integer> n1, BinaryTreeNode<Integer> n2) {
+        if(n1 == null && n2 == null) {
+            return true;
+        }
+
+        if(n1 == null || n2 == null) {
+            return false;
+        }
+
+        if(n1.data != n2.data) {
+            return false;
+        }
+
+        return (isIsomorphic(n1.left, n2.left) && isIsomorphic(n1.right, n2.right))
+                || (isIsomorphic(n1.left, n2.right) && isIsomorphic(n1.right, n2.left));
+    }
+
+
+    /* sum of longest root to leaf path */
+    // class for passing by reference
+
+//    static int maxLen;
+//    static int maxSum;
+    private void sumOfLongPathUtil(BinaryTreeNode<Integer> root, int sum, int len, Ref<Integer> maxLen, Ref<Integer> maxSum) {
+        if(root == null) {
+            if(maxLen.val < len) {
+                maxSum.val = sum;
+                maxLen.val = len;
+            } else if(maxLen.val == len && maxSum.val < sum) {
+                maxSum.val = sum;
+            }
+            return;
+        }
+
+        sumOfLongPathUtil(root.left, sum + root.data, len + 1, maxLen, maxSum);
+        sumOfLongPathUtil(root.right, sum + root.data, len + 1, maxLen, maxSum);
+    }
+
+    public int sumOfLongPath(BinaryTreeNode<Integer> root) {
+        if(root == null) {
+            return 0;
+        }
+
+        Ref<Integer> maxSum = new Ref<>();
+        Ref<Integer> maxLen = new Ref<>();
+
+        maxSum.val = Integer.MIN_VALUE;
+        maxLen.val = 0;
+        sumOfLongPathUtil(root, 0, 0, maxLen, maxSum);
+        return maxSum.val;
+    }
+
+
+    /* binary tree to bst */
+    public ArrayList<Integer> binaryTreeToArr(BinaryTreeNode<Integer> root, ArrayList<Integer> list) {
+        if(root == null) {
+            return list;
+        }
+
+        list.add(root.data);
+        binaryTreeToArr(root.left, list);
+        binaryTreeToArr(root.right, list);
+
+        return list;
+    }
+
+    public BinaryTreeNode<Integer> listToBST(BinaryTreeNode<Integer> root, ArrayList<Integer> list) {
+        if(root == null) {
+            return null;
+        }
+
+        listToBST(root.left, list);
+
+        root.data = list.get(0);
+        list.remove(0);
+
+        listToBST(root.right, list);
+        return root;
+    }
+
+
+    public BinaryTreeNode<Integer> binaryTreeToBST(BinaryTreeNode<Integer> root) {
+        if(root == null) {
+            return null;
+        }
+
+        ArrayList<Integer> list = new ArrayList<>();
+        list = binaryTreeToArr(root, list);
+        Collections.sort(list);
+
+        return listToBST(root, list);
+    }
+
 }
