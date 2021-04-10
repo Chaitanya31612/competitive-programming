@@ -2,6 +2,39 @@ import java.util.*;
 
 public class Graph {
 
+    private static int maxArr(int[] arr, int si, int ei) {
+        int max = Integer.MIN_VALUE;
+
+        for(int i = si; i <= ei; i++) {
+            if(arr[i] > max) {
+                max = arr[i];
+            }
+        }
+
+        return max;
+    }
+
+    public static int groupScore(int[] arr, int[][] edges) {
+        ArrayList<ArrayList<Integer>> list = connectedComponentsDFS(edges);
+
+        int ans = Integer.MIN_VALUE;
+        for(int i = 1; i < list.size(); i++) {
+            int max = Integer.MIN_VALUE;
+            for(int j = 0; j < list.get(i).size(); j++) {
+                max = Math.max(max, arr[list.get(i).get(j)]);
+            }
+
+            int num = list.get(i).size() - 1;
+            int newAns = max + num;
+
+
+            ans = Math.max(ans, newAns);
+        }
+
+        return ans;
+    }
+
+
 
     public static ArrayList<ArrayList<Integer>> connectedComponentsDFS(int[][] edges) {
         boolean[] visited = new boolean[edges.length];
@@ -261,6 +294,17 @@ public class Graph {
         }
     }
 
+    public static void printMatrix(int[][] edges) {
+        int m = edges.length;
+        int n = edges[0].length;
+        for(int i = 0; i < m; i++) {
+            for(int j = 0; j < n; j++) {
+                System.out.print(edges[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+
     public static void main(String[] args) {
 
 //        ArrayList<Integer> list = new ArrayList<>();
@@ -272,15 +316,62 @@ public class Graph {
         // n - no of nodes
         // e - no of edges
 
-        System.out.println("Enter number of vertex");
-        int n = sc.nextInt();
-        System.out.println("Enter number of edges");
+//        System.out.println("Enter number of vertex");
+//        int n = sc.nextInt();
+//        System.out.println("Enter number of edges");
+//        int e = sc.nextInt();
+//
+//        int[][] edges = new int[n][n];
+//
+//        for(int i = 0; i < e; i++) {
+//            System.out.println("Enter vertices");
+//            int fv = sc.nextInt();
+//            int sv = sc.nextInt();
+//
+//            edges[fv][sv] = 1;
+//            edges[sv][fv] = 1;
+//        }
+
+//        System.out.println("DFS");
+//        printDFS(edges);
+//
+//        System.out.println("BFS");
+//        printBFS(edges);
+//
+//        System.out.println("Has Path");
+//        System.out.println(hasPath(edges, 1, 3));
+//        System.out.println(hasPathDFS(edges, 1, 3));
+//
+//        ArrayList<Integer> pathDFS = getPathDFS(edges, 1, 3);
+//        if(pathDFS != null) {
+//            System.out.println(pathDFS);
+//        }
+//
+//        ArrayList<Integer> pathBFS = getPathBFS(edges, 1, 3);
+//        if(pathBFS != null) {
+//            System.out.println(pathBFS);
+//        }
+//
+//        System.out.println("isConnected " + isConnected(edges));
+//
+//
+//        System.out.println(connectedComponentsDFS(edges));
+
+
+
+        int num = sc.nextInt();
+        int[] arr = new int[num+1];
+        for(int i = 1; i <= num; i++) {
+            arr[i] = sc.nextInt();
+        }
+
+
+        int n = num + 1;
         int e = sc.nextInt();
 
         int[][] edges = new int[n][n];
 
         for(int i = 0; i < e; i++) {
-            System.out.println("Enter vertices");
             int fv = sc.nextInt();
             int sv = sc.nextInt();
 
@@ -288,29 +379,8 @@ public class Graph {
             edges[sv][fv] = 1;
         }
 
-        System.out.println("DFS");
-        printDFS(edges);
-
-        System.out.println("BFS");
-        printBFS(edges);
-
-        System.out.println("Has Path");
-        System.out.println(hasPath(edges, 1, 3));
-        System.out.println(hasPathDFS(edges, 1, 3));
-
-        ArrayList<Integer> pathDFS = getPathDFS(edges, 1, 3);
-        if(pathDFS != null) {
-            System.out.println(pathDFS);
-        }
-
-        ArrayList<Integer> pathBFS = getPathBFS(edges, 1, 3);
-        if(pathBFS != null) {
-            System.out.println(pathBFS);
-        }
-
-        System.out.println("isConnected " + isConnected(edges));
-
-
-        System.out.println(connectedComponentsDFS(edges));
+//        printMatrix(edges);
+//        System.out.println(connectedComponentsDFS(edges));
+        System.out.println(groupScore(arr, edges));
     }
 }
