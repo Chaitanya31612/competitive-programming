@@ -2,6 +2,33 @@ import java.util.*;
 
 public class Graph {
 
+
+    /*===============================================================*/
+    public static void GroupProblem() {
+        Scanner sc = new Scanner(System.in);
+        int num = sc.nextInt();
+        int[] arr = new int[num+1];
+        for(int i = 1; i <= num; i++) {
+            arr[i] = sc.nextInt();
+        }
+
+
+        int n = num + 1;
+        int e = sc.nextInt();
+
+        int[][] edges = new int[n][n];
+
+        for(int i = 0; i < e; i++) {
+            int fv = sc.nextInt();
+            int sv = sc.nextInt();
+
+            edges[fv][sv] = 1;
+            edges[sv][fv] = 1;
+        }
+
+        System.out.println(groupScore(arr, edges));
+    }
+
     private static int maxArr(int[] arr, int si, int ei) {
         int max = Integer.MIN_VALUE;
 
@@ -33,7 +60,7 @@ public class Graph {
 
         return ans;
     }
-
+    /*===============================================================*/
 
 
     public static ArrayList<ArrayList<Integer>> connectedComponentsDFS(int[][] edges) {
@@ -176,6 +203,7 @@ public class Graph {
 
 
     /*===========================haspathdfs======================================*/
+    // O(V + E)
     public static boolean hasPathDFS(int[][] edges, int s, int d, boolean[] visited) {
         if(s == d) {
             return true;
@@ -305,73 +333,24 @@ public class Graph {
         }
     }
 
-    public static void main(String[] args) {
 
-//        ArrayList<Integer> list = new ArrayList<>();
-//        System.out.println(list.isEmpty());
-//        System.out.println(list == null);
+
+    public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
 
         // n - no of nodes
         // e - no of edges
 
-//        System.out.println("Enter number of vertex");
-//        int n = sc.nextInt();
-//        System.out.println("Enter number of edges");
-//        int e = sc.nextInt();
-//
-//        int[][] edges = new int[n][n];
-//
-//        for(int i = 0; i < e; i++) {
-//            System.out.println("Enter vertices");
-//            int fv = sc.nextInt();
-//            int sv = sc.nextInt();
-//
-//            edges[fv][sv] = 1;
-//            edges[sv][fv] = 1;
-//        }
-
-//        System.out.println("DFS");
-//        printDFS(edges);
-//
-//        System.out.println("BFS");
-//        printBFS(edges);
-//
-//        System.out.println("Has Path");
-//        System.out.println(hasPath(edges, 1, 3));
-//        System.out.println(hasPathDFS(edges, 1, 3));
-//
-//        ArrayList<Integer> pathDFS = getPathDFS(edges, 1, 3);
-//        if(pathDFS != null) {
-//            System.out.println(pathDFS);
-//        }
-//
-//        ArrayList<Integer> pathBFS = getPathBFS(edges, 1, 3);
-//        if(pathBFS != null) {
-//            System.out.println(pathBFS);
-//        }
-//
-//        System.out.println("isConnected " + isConnected(edges));
-//
-//
-//        System.out.println(connectedComponentsDFS(edges));
-
-
-
-        int num = sc.nextInt();
-        int[] arr = new int[num+1];
-        for(int i = 1; i <= num; i++) {
-            arr[i] = sc.nextInt();
-        }
-
-
-        int n = num + 1;
+        System.out.println("Enter number of vertex");
+        int n = sc.nextInt();
+        System.out.println("Enter number of edges");
         int e = sc.nextInt();
 
         int[][] edges = new int[n][n];
 
         for(int i = 0; i < e; i++) {
+            System.out.println("Enter vertices");
             int fv = sc.nextInt();
             int sv = sc.nextInt();
 
@@ -379,8 +358,31 @@ public class Graph {
             edges[sv][fv] = 1;
         }
 
-//        printMatrix(edges);
-//        System.out.println(connectedComponentsDFS(edges));
-        System.out.println(groupScore(arr, edges));
+        System.out.println("DFS");
+        printDFS(edges);
+
+        System.out.println("BFS");
+        printBFS(edges);
+
+        System.out.println("Has Path");
+        System.out.println(hasPath(edges, 1, 3));
+        System.out.println(hasPathDFS(edges, 1, 3));
+
+        ArrayList<Integer> pathDFS = getPathDFS(edges, 1, 3);
+        if(pathDFS != null) {
+            System.out.println(pathDFS);
+        }
+
+        ArrayList<Integer> pathBFS = getPathBFS(edges, 1, 3);
+        if(pathBFS != null) {
+            System.out.println(pathBFS);
+        }
+
+        System.out.println("isConnected " + isConnected(edges));
+
+
+        System.out.println(connectedComponentsDFS(edges));
+
+
     }
 }

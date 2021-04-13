@@ -1,7 +1,7 @@
 public class Sorting {
     public static void print(int[] arr){
-        for(int i = 0; i < arr.length; i++) {
-            System.out.print(arr[i] + " ");
+        for (int j : arr) {
+            System.out.print(j + " ");
         }
         System.out.println();
     }
@@ -26,7 +26,7 @@ public class Sorting {
     }
 
     public static void bubble(int[] arr) {
-        /** Bubble sort used for sorting the given array */
+        /* Bubble sort used for sorting the given array */
         int n = arr.length;
         for(int i = 0; i < n; i++) {
             for(int j = 0; j < n-i-1; j++) {
