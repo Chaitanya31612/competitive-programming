@@ -185,25 +185,44 @@ public class GraphAdjList {
 
 
 
+    public static int findParent(int v, int[] parent) {
+        /*
+        [0, 1, 2, 3, 4, 5] - array initially, so recursion will end in base case
+        [2, 1, 2, 3, 4, 5] - in this parent of 0 is 2
+         */
 
-//    public static int[] dijkstra(int V, ArrayList<ArrayList<Integer>> adj, int S) {
-//        boolean[] visited = new boolean[V];
-//        int[] distances = new int[V];
-//        for(int i = 1; i < V; i++) {
-//            distances[i] = Integer.MAX_VALUE;
-//        }
-//        distances[0] = 0;
-//
-//        for(int i = 0; i < V; i++) {
-//            // find unvisited minimum distance
-//            int minIndex = findMin(distances, visited);
-//
-//            visited[minIndex] = true;
-//            for(int neigh : adj.get(i)) {
-//                int curr_weight
-//            }
-//        }
-//    }
+        if(parent[v] == v) {
+            return v;
+        }
+
+        return findParent(parent[v], parent);
+    }
+
+
+    public static boolean isCycle(int V, ArrayList<ArrayList<Integer>> adj) {
+
+        int[] parent = new int[V];
+        for(int i = 0; i < V; i++) {
+            parent[i] = i;
+        }
+
+        for(int i = 0; i < adj.size(); i++) {
+            for(int j = 0; j < adj.get(i).size(); j++) {
+                if(i > adj.get(i).get(j)) {
+                    int sourceParent = findParent(i, parent);
+                    int destParent = findParent(adj.get(i).get(j), parent);
+
+                    if(sourceParent == destParent) {
+                        return true;
+                    }
+
+                    parent[sourceParent] = destParent;
+                }
+            }
+        }
+
+        return false;
+    }
 
 
     public static void main(String[] args)
@@ -237,5 +256,7 @@ public class GraphAdjList {
         System.out.println(hasPathDFS(adjacencyList, 1, 3));
 
         System.out.println(connectedComponents(adjacencyList));
+
+        System.out.println(isCycle(n, adjacencyList));
     }
 }

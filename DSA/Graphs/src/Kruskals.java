@@ -84,6 +84,52 @@ public class Kruskals {
     }
 
 
+
+    /* Has cycle */
+    public static boolean isCycle(Edge input[], int n) {
+        // this will sort input array according to weight as we have override the compareTo method of Comparable class
+        Arrays.sort(input);
+
+        // the size is n - 1 as there are n - 1 edges for a minimum spanning tree
+        Edge output[] = new Edge[n - 1];
+
+        /* parent array which will store the immediate parent of a vertex and will be used to find
+         * top level parent of array for finding if there is a path from source to destination
+         * initially every node is a parent of itself */
+        int[] parent = new int[n];
+        for(int i = 0; i < n; i++) {
+            parent[i] = i;
+        }
+
+        // count variable for keeping count of number of edges and for mst it should be n - 1
+        int count = 0;
+        // i is for the current edge on which we are working
+        int i = 0;
+
+        while(count != n - 1) {
+            Edge currentEdge = input[i];
+
+            int sourceParent = findParent(currentEdge.source, parent);
+            int destParent = findParent(currentEdge.dest, parent);
+
+            /* If they are not equal which means that we don't have any path from source to destination
+             * initially so adding the edge will be safe */
+            if(sourceParent == destParent) {
+                return true;
+            }
+            output[count] = currentEdge;
+            count++;
+
+            // changing parent of source to destination
+            parent[sourceParent] = destParent;
+
+            i++;
+        }
+
+        return false;
+    }
+
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -104,6 +150,7 @@ public class Kruskals {
         }
 
         kruskals(input, n);
+        System.out.println(isCycle(input, n));
     }
 }
 
