@@ -165,8 +165,7 @@ public class MSTList {
             adj.add(new ArrayList<ArrayList<Integer>>());
         }
 
-        int i=0;
-        while (i++<E) {
+        for(int i = 0; i < E; i++) {
             int u = sc.nextInt();
             int v = sc.nextInt();
             int w = sc.nextInt();

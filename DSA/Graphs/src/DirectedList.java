@@ -39,6 +39,7 @@ public class DirectedList {
     }
 
 
+    /* Using bfs - check if the node is visited or not*/
     private static boolean isCyclic(int sv, ArrayList<ArrayList<Integer>> adj, boolean[] visited) {
         Queue<Integer> queue = new LinkedList<>();
 
