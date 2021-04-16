@@ -281,4 +281,32 @@ public class GraphClass<T> {
         }
     }
 
+
+    public boolean isCyclic(T src) {
+        HashMap<T, Boolean> visited = new HashMap<>();
+        HashMap<T, T> parent = new HashMap<>();
+        Queue<T> queue = new LinkedList<>();
+
+        queue.add(src);
+        visited.put(src, true);
+        parent.put(src, src);
+
+        while (!queue.isEmpty()) {
+            T front = queue.poll();
+
+            for(T neighbour : adjList.get(front)) {
+                if(visited.containsKey(neighbour) && parent.get(front) != neighbour) {
+                    return true;
+                } else if(!visited.containsKey(neighbour)) {
+                    visited.put(neighbour, true);
+                    parent.put(neighbour, front);
+                    queue.add(neighbour);
+                }
+
+            }
+        }
+
+        return false;
+    }
+
 }

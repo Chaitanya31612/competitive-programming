@@ -67,13 +67,24 @@ public class GraphClassUse {
 
 
         /* Topological Sort */
-        GraphClass<Integer> gTop = new GraphClass<>();
-        gTop.addEdge(1, 2, false);
-        gTop.addEdge(1, 3, false);
-        gTop.addEdge(2, 4, false);
-        gTop.addEdge(3, 4, false);
-        gTop.dfsTopologicalSort();
-        gTop.bfsTopologicalSort();
+//        GraphClass<Integer> gTop = new GraphClass<>();
+//        gTop.addEdge(1, 2, false);
+//        gTop.addEdge(1, 3, false);
+//        gTop.addEdge(2, 4, false);
+//        gTop.addEdge(3, 4, false);
+//        gTop.dfsTopologicalSort();
+//        gTop.bfsTopologicalSort();
+
+
+        /* isCyclic */
+        GraphClass<Integer> gCycle = new GraphClass<>();
+        gCycle.addEdge(0, 1, true);
+        gCycle.addEdge(1, 2, true);
+        gCycle.addEdge(2, 3, true);
+        gCycle.addEdge(3, 4, true);
+//        gCycle.addEdge(4, 0, true);
+
+        System.out.println(gCycle.isCyclic(0));
     }
 
 
