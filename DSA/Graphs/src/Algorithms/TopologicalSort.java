@@ -1,8 +1,6 @@
 package Algorithms;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
+import java.util.*;
 
 public class TopologicalSort {
 
@@ -38,6 +36,57 @@ public class TopologicalSort {
     }
 
 
+
+    /* topological sort bfs approach */
+
+    public static ArrayList<Integer> topoSortBFS(ArrayList<ArrayList<Integer>> adj) {
+        boolean[] visited = new boolean[adj.size()];
+
+        ArrayList<Integer> ans = new ArrayList<>();
+        for(int i = 0; i < adj.size(); i++) {
+            if(!visited[i]) {
+                bfs(adj, adj.size(), i, visited, ans);
+            }
+        }
+
+        return ans;
+    }
+
+    private static void bfs(ArrayList<ArrayList<Integer>> adj, int v, int s, boolean[] visited, ArrayList<Integer> ans) {
+        int[] indegree = new int[v];
+        Queue<Integer> q = new LinkedList<>();
+
+        // initialize indegree of every vertex
+        for(int i = 0; i < v; i++) {
+            for(int neigh : adj.get(i)) {
+                indegree[neigh]++;
+            }
+        }
+
+        // find vertices with indegree 0 and add them to queue
+        for(int i = 0; i < v; i++) {
+            if(indegree[i] == 0) {
+                q.add(i);
+            }
+        }
+
+        visited[s] = true;
+        while(!q.isEmpty()) {
+            int front = q.poll();
+            ans.add(front);
+
+            for(int neigh : adj.get(front)) {
+                indegree[neigh]--;
+
+                if(indegree[neigh] == 0) {
+                    q.add(neigh);
+                    visited[neigh] = true;
+                }
+            }
+        }
+    }
+
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -59,5 +108,6 @@ public class TopologicalSort {
 
         int[] arr = topoSortDFS(v, adj);
         System.out.println(Arrays.toString(arr));
+        System.out.println(topoSortBFS(adj));
     }
 }
