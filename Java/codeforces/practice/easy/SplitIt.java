@@ -32,9 +32,8 @@ public class SplitIt {
             sc.nextLine();
             String s = sc.nextLine();
 
-            String ans = "";
             if(2*k == n) {
-                ans = "NO";
+                System.out.println("NO");
             } else {
                 String ak = s.substring(0, k);
                 String nk = s.substring(n-k);

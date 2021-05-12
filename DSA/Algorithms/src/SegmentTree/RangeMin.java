@@ -4,6 +4,48 @@ import java.util.Scanner;
 
 public class RangeMin {
 
+    /* Segment tree with lazy propagation - for updating range */
+    public static void updateRangeLazy(int[] tree, int[] lazy, int ss, int se, int l, int r, int inc, int index) {
+        // Never go down if there is lazy value on a node - first resolve it
+        if(lazy[index] != 0) {
+            tree[index] += inc;
+
+            // if not leaf node - then add lazy value to children
+            if(ss != se) {
+                lazy[2 * index] += lazy[index];
+                lazy[2 * index + 1] += lazy[index];
+            }
+            // set lazy value to zero as it has been resolved
+            lazy[index] = 0;
+        }
+
+        // out of bound - no overlap
+        if(ss > r || se < l) {
+            return;
+        }
+
+        // complete overlap
+        if(ss >= l && se <= r) {
+            tree[index] += inc;
+
+            // pass lazy value to the children
+            // if reached here then the current index will not have any lazy value
+            if(ss != se) {
+                lazy[2 * index] += inc;
+                lazy[2 * index + 1] += inc;
+            }
+            return;
+        }
+
+        // partial overlap - call on left and right
+        int mid = (ss + se) / 2;
+        updateRangeLazy(tree, lazy, ss, mid, l, r, inc, 2 * index);
+        updateRangeLazy(tree, lazy, mid + 1, se, l, r, inc, 2 * index + 1);
+
+        tree[index] = Math.min(tree[2 * index], tree[2 * index + 1]);
+    }
+
+
 
     /* Update range - O(n) - in worst case update all nodes */
     public static void updateRange(int[] tree, int ss, int se, int l, int r, int inc, int index) {
@@ -12,7 +54,7 @@ public class RangeMin {
             return;
         }
 
-        // found left node
+        // found leaf node
         if(ss == se) {
             tree[index] += inc;
             return;
@@ -59,6 +101,39 @@ public class RangeMin {
     }
 
 
+
+    /* Lazy propagation query */
+    public static int queryLazy(int[] tree, int[] lazy, int ss, int se, int qs, int qe, int index) {
+        // Never go down if there is lazy value on a node - first resolve it
+        if(lazy[index] != 0) {
+            tree[index] += lazy[index];
+
+            // if not leaf node - then add lazy value to children
+            if(ss != se) {
+                lazy[2 * index] += lazy[index];
+                lazy[2 * index + 1] += lazy[index];
+            }
+            // set lazy value to zero as it has been resolved
+            lazy[index] = 0;
+        }
+
+        // out of bound - no overlap
+        if(ss > qe || se < qs) {
+            return Integer.MAX_VALUE;
+        }
+
+        // complete overlap
+        if(ss >= qs && se <= qe) {
+            return tree[index];
+        }
+
+        // partial overlap - call on left and right
+        int mid = (ss + se) / 2;
+        int left = queryLazy(tree, lazy, ss, mid, qs, qe, 2 * index);
+        int right = queryLazy(tree, lazy, mid + 1, se, qs, qe, 2 * index + 1);
+
+        return Math.min(left, right);
+    }
 
     /* Query - time O(logn)
     as it is a height balanced tree because we created it after getting input */
@@ -132,7 +207,9 @@ public class RangeMin {
         // arr = [1 3 12 10 6 4]
 
 
-        updateRange(tree, 0, n - 1, 2, 3, 10, 1);
+//        updateRange(tree, 0, n - 1, 2, 3, 10, 1);
+        int[] lazy = new int[tree.length];
+        updateRangeLazy(tree, lazy, 0, n - 1, 2, 3, 10, 1);
 
         int numQuery = sc.nextInt();
         while(numQuery-- > 0) {

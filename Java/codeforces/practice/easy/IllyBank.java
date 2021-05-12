@@ -1,4 +1,4 @@
-//package easy;
+package easy;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
