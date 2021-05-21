@@ -88,25 +88,20 @@ public class Sudoku {
     {
 
         Scanner sc = new Scanner(System.in);
-        int t = sc.nextInt();
 
-        while(t-- > 0)
+        int[][] grid = new int[9][9];
+        for(int i = 0; i < 9; i++)
         {
-            int grid[][] = new int[9][9];
-            for(int i = 0; i < 9; i++)
-            {
-                for(int j = 0; j < 9; j++)
-                    grid[i][j] = sc.nextInt();
-            }
-
-
-            if(SolveSudoku(grid))
-                printGrid(grid);
-            else
-                System.out.print("NO solution exists");
-            System.out.println();
-
+            for(int j = 0; j < 9; j++)
+                grid[i][j] = sc.nextInt();
         }
+
+
+        if(SolveSudoku(grid))
+            printGrid(grid);
+        else
+            System.out.print("NO solution exists");
+        System.out.println();
     }
 }
 
