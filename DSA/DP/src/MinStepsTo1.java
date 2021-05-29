@@ -2,10 +2,9 @@ import java.util.Scanner;
 
 public class MinStepsTo1 {
 
-    /*=================== DONT USE ============================= */
-    /* not always optimal
+    /*
     * eg for 10, optimal ans is 3 i.e -> 10->9->3->1
-    * but our code gives 4 */
+    * */
     int minStepsTo1(int n) {
         if(n == 1) {
             return 0;
@@ -22,7 +21,7 @@ public class MinStepsTo1 {
             option3 = minStepsTo1(n - 1) + 1;
         }
 
-        return Math.max(option1, Math.max(option2, option3));
+        return Math.min(option1, Math.min(option2, option3));
     }
     /*==============================================================*/
 
