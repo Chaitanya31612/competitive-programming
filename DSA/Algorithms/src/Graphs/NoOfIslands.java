@@ -1,40 +1,11 @@
-// { Driver Code Starts
+package Graphs;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-class GFG
+
+public class NoOfIslands
 {
-    public static void main(String[] args) throws IOException
-    {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int T = Integer.parseInt(br.readLine().trim());
-        while(T-->0)
-        {
-            String[] s = br.readLine().trim().split(" ");
-            int n = Integer.parseInt(s[0]);
-            int m = Integer.parseInt(s[1]);
-            char[][] grid = new char[n][m];
-            for(int i = 0; i < n; i++){
-                String[] S = br.readLine().trim().split(" ");
-                for(int j = 0; j < m; j++){
-                    grid[i][j] = S[j].charAt(0);
-                }
-            }
-            IslandSol obj = new IslandSol();
-            int ans = obj.numIslands(grid);
-            System.out.println(ans);
-        }
-    }
-}// } Driver Code Ends
-
-
-
-
-
-class IslandSol
-{
-    //Function to find the number of islands.
-
     static int[][] graph;
     static int n, m;
 
@@ -88,4 +59,26 @@ class IslandSol
         return count;
     }
 
+    public static void main(String[] args) throws IOException
+    {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int T = Integer.parseInt(br.readLine().trim());
+        while(T-->0)
+        {
+            String[] s = br.readLine().trim().split(" ");
+            int n = Integer.parseInt(s[0]);
+            int m = Integer.parseInt(s[1]);
+            char[][] grid = new char[n][m];
+            for(int i = 0; i < n; i++){
+                String[] S = br.readLine().trim().split(" ");
+                for(int j = 0; j < m; j++){
+                    grid[i][j] = S[j].charAt(0);
+                }
+            }
+
+            NoOfIslands no = new NoOfIslands();
+            int ans = no.numIslands(grid);
+            System.out.println(ans);
+        }
+    }
 }
